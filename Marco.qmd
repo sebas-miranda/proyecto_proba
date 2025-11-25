@@ -605,5 +605,6 @@ El proceso continúa hasta que el auditor obtenga un tamaño $z^{\*}$ satisfacto
 Este protocolo asiste al auditor en la gestión del riesgo. Valores críticos elevados implican un mayor riesgo de pasar por alto registros fraudulentos (dado que la muestra será más pequeña), mientras que valores críticos bajos generan muestras más amplias, reduciendo la probabilidad de excluir registros relevantes para la auditoría.
 
 
+### Conclusiones: 
 
 
