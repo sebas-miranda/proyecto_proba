@@ -714,6 +714,12 @@ En conjunto, la evidencia muestra que el modelo es una buena herramienta para de
 
 ### Conclusiones:
 
+En conclusión, se observo como la probabilidad puede llegar a impactar y revoluciona ámbitos como lo es la auditoria, donde se le otorga un uso practico y vital. Ello se demuestra mediante el caso analizado pues a través de métodos centrados en la probabilidad, como lo son las funciones indicadoras, las propiedades para que un caso concreto se considere una variable aleatoria discreta, utilidad de TLC, las leyes de los grandes números y demás.
+
+Con lo cual, se logro identificar y aproximar patrones numéricos esperados que detectaron desviaciones de los datos dando así indicadores de anomalías o irregularidades, con la finalidad de analizar conjuntos de datos para “auditar”. Ejemplificando como la probabilidad puede retomarse y ser clave en procesos de toma de decisiones y simplificación de acciones, como lo fue con la selección de muestras en auditoria de manera más eficiente. 
+
+Por último, se denotaron ciertas limitaciones en el área de la probabilidad, como lo es con la utilidad de la Ley de Benford para el análisis de datos pues se requieren condiciones específicas de los conjuntos de datos seleccionados, como lo es la cobertura de muchos ordenes de magnitud, es decir, que los valores tomados abarquen desde números pequeños hasta valores grandes; que el conjunto no tenga limitaciones como topes o mínimos y que la selección de datos provenga de muchos factores mezclados entre si como lo son ventas acumuladas, precios por cantidades, etc. Lo anterior se presenta pues Benford únicamente funciona de forma pertinente cuando los números representan procesos variados y multiplicativos, de aleatoriedad razonable. Pues si fueran datos con forma lógica, asignados por una regla o no varían lo suficiente, no se lograría una distribución logarítmica adecuada y las “desviaciones” vistas serian una “falsa alarma”.
+
 ### Referencias: 
 Boyle, J. 1994. An application of Fourier series to the most significant digit problem. American
 Mathematical Monthly (November): 879–886.
