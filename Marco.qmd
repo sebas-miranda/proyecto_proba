@@ -48,19 +48,16 @@ include-in-header:
       \predate{\begin{center}\fontsize{12pt}{14pt}\selectfont}
       \postdate{\par\end{center}}      
 ---
+
 ## Introducción
 
 ### Finalidad del trabajo y Explicación de los Modelos Planteados.
 
-El trabajo confeccionado por Gomes da Silva y Carreira surge con la finalidad de proponer un criterio técnico-racional eficiente para la selección de muestras en pruebas de auditoría, focalizado principalmente en instituciones financieras, la necesidad de la investigación de este tema surge debido a que los auditores requieren gestionar de forma eficiente el tiempo invertido para el estudio de los conjuntos de datos, más aún se requiere que el auditor sea capaz de realizar un filtrado efectivo del conjunto de datos pues el examinar transacción por transacción es una meta poco realista.  
+El trabajo confeccionado por Gomes da Silva y Carreira surge con la finalidad de proponer un criterio técnico-racional eficiente para la selección de muestras en pruebas de auditoría, focalizado principalmente en instituciones financieras, la necesidad de la investigación de este tema surge debido a que los auditores requieren gestionar de forma eficiente el tiempo invertido para el estudio de los conjuntos de datos, más aún se requiere que el auditor sea capaz de realizar un filtrado efectivo del conjunto de datos pues el examinar transacción por transacción es una meta poco realista.
 
-Este objetivo es alcanzado mediante la segmentación en dos bandas de los conjuntos de datos. 
-Primeramente, se identifican las muestras de auditoría observando las propiedades del subconjunto 
-de datos remanente después de retirar la muestra a auditar; esta muestra a auditar proviene del conjunto 
-más pequeño de los datos que no siguen la conformidad deseada en los registros. 
+Este objetivo es alcanzado mediante la segmentación en dos bandas de los conjuntos de datos. Primeramente, se identifican las muestras de auditoría observando las propiedades del subconjunto de datos remanente después de retirar la muestra a auditar; esta muestra a auditar proviene del conjunto más pequeño de los datos que no siguen la conformidad deseada en los registros.
 
-Con la finalidad de determinar qué registro $t$ ha de ser examinado, es decir, removido del conjunto inicial 
-de los primeros $N$ registros, se define una variable aleatoria indicatriz:
+Con la finalidad de determinar qué registro $t$ ha de ser examinado, es decir, removido del conjunto inicial de los primeros $N$ registros, se define una variable aleatoria indicatriz:
 
 $$
 y_t := 
@@ -69,38 +66,27 @@ y_t :=
 0, & \text{en otro caso},
 \end{cases} 
 \quad t \in \{1,2,3,\ldots, N\}.
-$$
-Con esta variable aleatoria se introduce el tamaño del conjunto de conformidad dado por:
+$$ Con esta variable aleatoria se introduce el tamaño del conjunto de conformidad dado por:
 
 $$
 N - K, \quad \text{donde} \quad K := \sum_{t=1}^{N} y_t.
 $$
 
-La idea tras esto, tal como señalan da Silva \& Carreira (2013), es identificar en qué datos se encuentra 
-la contaminación y removerla, dado que se persigue la finalidad de recuperar el conjunto de datos original. 
-Una vez hecha esta separación, se toman los $K$ registros más no conformes, dado un tamaño de muestra 
-fijado por el auditor.
+La idea tras esto, tal como señalan da Silva & Carreira (2013), es identificar en qué datos se encuentra la contaminación y removerla, dado que se persigue la finalidad de recuperar el conjunto de datos original. Una vez hecha esta separación, se toman los $K$ registros más no conformes, dado un tamaño de muestra fijado por el auditor.
 
 ### Explicación de la Ley de Benford
 
-La particularidad del modelo proviene del filtrado para elegir qué conjuntos de datos están fuera de los 
-parámetros de conformidad siguiendo la Ley de Benford. Esta ley, explicada de modo intuitivo, se puede 
-ejemplificar de la siguiente manera:
+La particularidad del modelo proviene del filtrado para elegir qué conjuntos de datos están fuera de los parámetros de conformidad siguiendo la Ley de Benford. Esta ley, explicada de modo intuitivo, se puede ejemplificar de la siguiente manera:
 
-Suponer que se toma una muestra de datos fidedignos y heterogéneos, es decir, muy diversos, como por 
-ejemplo: el registro de natalidad por año de un país, el número de distritos por cantón en Costa Rica, 
-o facturas de compras en un supermercado. 
+Suponer que se toma una muestra de datos fidedignos y heterogéneos, es decir, muy diversos, como por ejemplo: el registro de natalidad por año de un país, el número de distritos por cantón en Costa Rica, o facturas de compras en un supermercado.
 
-De forma intuitiva podría suponerse que cada dígito $\{1,2,\ldots,9\}$ tiene un peso equiprobable de 
-ocurrencia, es decir:
+De forma intuitiva podría suponerse que cada dígito $\{1,2,\ldots,9\}$ tiene un peso equiprobable de ocurrencia, es decir:
 
 $$
 P(X = i) = \frac{1}{9} \approx 0.111.
 $$
 
-No obstante, esto no es cierto. En realidad, el dígito 1 ocurre con mucha mayor frecuencia que los demás; 
-el dígito 2 ocurre más que los restantes siete, y así sucesivamente hasta el 9. Los pesos de Benford típicos 
-son aproximadamente: 30% para el 1, 18% para el 2, y valores decrecientes hasta el 9.
+No obstante, esto no es cierto. En realidad, el dígito 1 ocurre con mucha mayor frecuencia que los demás; el dígito 2 ocurre más que los restantes siete, y así sucesivamente hasta el 9. Los pesos de Benford típicos son aproximadamente: 30% para el 1, 18% para el 2, y valores decrecientes hasta el 9.
 
 La probabilidad teórica de que el primer dígito sea $i$, donde $i = 1,2,\ldots,9$, está dada por:
 
@@ -108,45 +94,34 @@ $$
 P(\text{primer dígito } = i) = \log_{10}\!\left(1 + \frac{1}{i}\right).
 $$
 
-Esta expresión tiene una justificación intuitiva debido a que muchos datos económicos se generan mediante 
-productos o cocientes de variables aleatorias, como sucede con el interés compuesto.
+Esta expresión tiene una justificación intuitiva debido a que muchos datos económicos se generan mediante productos o cocientes de variables aleatorias, como sucede con el interés compuesto.
 
-Para hacer más natural esta explicación, considérese el caso en que el crecimiento poblacional de un país 
-está modelado con una distribución exponencial $\text{Exp}(\lambda = 1.1)$. En los primeros años, pasar de 
-100 a 1000 personas tarda más tiempo que pasar de 1000 a 2000, por el crecimiento progresivo de la 
-exponencial. Esto implica más observaciones con primer dígito 1, justificando intuitivamente la ley.
+Para hacer más natural esta explicación, considérese el caso en que el crecimiento poblacional de un país está modelado con una distribución exponencial $\text{Exp}(\lambda = 1.1)$. En los primeros años, pasar de 100 a 1000 personas tarda más tiempo que pasar de 1000 a 2000, por el crecimiento progresivo de la exponencial. Esto implica más observaciones con primer dígito 1, justificando intuitivamente la ley.
 
-## Justificación 
+## Justificación
 
-El trabajo de investigación *Selecting Audit Samples Using Benford's Law* involucra amplios temas 
-probabilísticos aplicados en la industria financiera. En particular, se vincula fuertemente con:
+El trabajo de investigación *Selecting Audit Samples Using Benford's Law* involucra amplios temas probabilísticos aplicados en la industria financiera. En particular, se vincula fuertemente con:
 
-- la distribución de probabilidad de los dígitos de los datos,
-- el uso de la distribución natural de Benford como referencia,
-- la identificación de desviaciones respecto a esta distribución.
+-   la distribución de probabilidad de los dígitos de los datos,
+-   el uso de la distribución natural de Benford como referencia,
+-   la identificación de desviaciones respecto a esta distribución.
 
-Aquellos conjuntos que se alejan significativamente de Benford se consideran eventos poco probables 
-bajo el modelo, y por ende, deben ser auditados.
+Aquellos conjuntos que se alejan significativamente de Benford se consideran eventos poco probables bajo el modelo, y por ende, deben ser auditados.
 
-Simultáneamente, el trabajo integra herramientas probabilísticas y estadísticas para pruebas de conformidad, 
-evaluando qué tan lejos se alejan los datos observados del comportamiento esperado. Esto incluye conceptos 
-tales como:
+Simultáneamente, el trabajo integra herramientas probabilísticas y estadísticas para pruebas de conformidad, evaluando qué tan lejos se alejan los datos observados del comportamiento esperado. Esto incluye conceptos tales como:
 
-- variables aleatorias,
-- funciones indicadoras,
-- funciones objetivo basadas en probabilidad,
-- restricciones construidas mediante desviaciones estadísticas.
+-   variables aleatorias,
+-   funciones indicadoras,
+-   funciones objetivo basadas en probabilidad,
+-   restricciones construidas mediante desviaciones estadísticas.
 
-Todos estos conceptos se articulan con el propósito de resolver un problema real: optimizar la selección de 
-muestras de auditoría en datos financieros potencialmente afectados por errores o fraudes.
+Todos estos conceptos se articulan con el propósito de resolver un problema real: optimizar la selección de muestras de auditoría en datos financieros potencialmente afectados por errores o fraudes.
 
 ## Objetivo
 
 El objetivo del trabajo de investigación abordado consisten en proporcionar una herramienta técnica eficiente para la recolección de muestras a auditar teniendo como referencia los parámetros de conformidad previamente definidos por el auditor, para este propósito se establecen cierto criterios para realizar el filtrado del conjunto de datos, bajo los principios de la ley de Benford, por esto mismo el trabajo persigue contribuir al análisis dígital mediante modelos matemáticos en la prevención del fraude.
 
 ## Marco Teórico
-
-
 
 ### Ley de Benford y representación logarítmica
 
@@ -387,11 +362,9 @@ En resumen, desde el punto de vista del curso de Probabilidad:
 -   su definición usa de manera directa conceptos como variables indicadoras, esperanza, varianza y el Teorema del Límite Central;
 -   y todos ellos sirven, en el artículo, para cuantificar **qué tan lejos** están los datos observados de la distribución de Benford. En la siguiente parte del marco teórico se explicará cómo estos estadísticos se convierten en restricciones específicas dentro del modelo de programación matemática que busca el “smallest nonconforming set of records”.
 
-
 ## Metodología
 
 Inicialmente, *Selecting Audit Samples Using Benford's Law* presenta dos aplicaciones principales para las auditorías utilizando los tres modelos estadísticos ya definidos. Para un análisis más compacto, se toma en cuenta la primer aplicación, denominada como *Smallest Nonconforming Set of Records*, la cual se modela al final de este apartado, pero de manera intuitiva, corresponde **al conjunto más pequeño de registros no conformes** obtenidos de un datset.
-
 
 ### Estadísticos de prueba y pruebas de conformidad en el modelo
 
@@ -583,9 +556,9 @@ $$ sujeto a todas estas restricciones de conformidad. Es decir, buscan el **conj
 
 El modelo requiere que el auditor defina ciertos parámetros antes de ejecutar el procedimiento, en particular:
 
-- los **tests de conformidad** a utilizar (primer dígito, segundo dígito, dos primeros dígitos, últimos dígitos, etc.);
-- los **estadísticos** asociados a cada test (χ², MAD o *Z*-score);
-- los **valores críticos** correspondientes a los estadísticos seleccionados.
+-   los **tests de conformidad** a utilizar (primer dígito, segundo dígito, dos primeros dígitos, últimos dígitos, etc.);
+-   los **estadísticos** asociados a cada test (χ², MAD o *Z*-score);
+-   los **valores críticos** correspondientes a los estadísticos seleccionados.
 
 En la práctica, estas decisiones pueden generar incertidumbre para el auditor. Por ello, Gomes da Silva y Carreira (2013) proponen un **protocolo iterativo** que permite ajustar los valores críticos después de observar el tamaño de la muestra resultante.
 
@@ -597,14 +570,115 @@ $$
 
 Una vez obtenida la solución, el auditor evalúa si el tamaño de la muestra, denotado por $z^{\*}$, es adecuado. En caso de no serlo, puede ajustarlo de la siguiente manera:
 
-- Si desea **una muestra más grande**, puede **disminuir los valores críticos**, haciendo más estrictas las pruebas de conformidad.
-- Si desea **una muestra más pequeña**, puede **incrementar los valores críticos**, haciendo las pruebas más permisivas.
+-   Si desea **una muestra más grande**, puede **disminuir los valores críticos**, haciendo más estrictas las pruebas de conformidad.
+-   Si desea **una muestra más pequeña**, puede **incrementar los valores críticos**, haciendo las pruebas más permisivas.
 
 El proceso continúa hasta que el auditor obtenga un tamaño $z^{\*}$ satisfactorio. Los registros seleccionados finalizan siendo aquellos con $y_t = 1$ en la solución correspondiente a los valores críticos aceptados.
 
 Este protocolo asiste al auditor en la gestión del riesgo. Valores críticos elevados implican un mayor riesgo de pasar por alto registros fraudulentos (dado que la muestra será más pequeña), mientras que valores críticos bajos generan muestras más amplias, reduciendo la probabilidad de excluir registros relevantes para la auditoría.
 
+### Análisis de resultados y efectividad del modelo
 
-### Conclusiones: 
+Para analizar los resultados del modelo los autores generaron aleatoriamente una muestra de 30 datasets, con 5000 registros de cuatro (4) dígitos cada uno, generados del resultado de 1000 x 10^r (con r entre 0 y 1), y le aplicaron cuatro tipos típicos de manipulación de datos:
 
+- Redondeo (se redondea el número al múltiplo de 100 más cercano)
 
+- Barrera psicológica (reemplaza los últimos dos dígitos por 99 y le resta una unidad al segundo dígito)
+
+- Invención de números (reemplaza el número por otro generado de la distribución uniforme)
+
+- Uso repetido del mismo número (reemplaza los últimos registros por un único valor de los registros)
+
+Estas simulaciones de datos contaminados se hicieron en cuatro grupos de los mismos 30 datasets cada uno, dejando en total 120 datasets, en los que el primer grupo presentaba un 2% de los datos contaminados; el segundo grupo presentaba un 10% de los datos contaminados; el tercer grupo presentaba un 20% de los datos contaminados; y, el último grupo presentaba un 40% de los datos contaminados. Finalmente el desempeño del modelo se analiza observando las siguientes dos métricas:
+
+1. Porcentaje de registros contaminados dentro de la muestra auditada (cuál es el porcentaje de registros realmente contaminado de la muestra que señaló el modelo)
+
+2. Porcentaje de registros contaminados detectados por el modelo (cuál es el porcentaje de contaminados que señaló el modelo respecto a los contaminados totales)
+
+#### Efectividad según nivel de contaminación
+
+##### Contaminación del 2%
+- Tamaño promedio de la muestra auditada: 28 registros
+
+- Registros contaminados dentro de la muestra auditada: 42%
+
+- Porcentaje total de contaminaciones detectadas: 11%
+
+*Interpretación:*
+La tasa de detección total es baja, esto se puede dar debido a que las desviaciones producidas son mínimas y muchas manipulación pasan inadvertidas.
+Esto evidencia que el poder de detección del Modelo 1 en contextos de fraude leve es limitado.
+
+##### Contaminación del 10%
+- Tamaño promedio de la muestra auditada: 327 registros
+
+- Registros contaminados dentro de la muestra auditada: 77%
+
+- Porcentaje total de contaminaciones detectadas: 50%
+
+*Interpretación:*
+Ahora se observa una mayor contaminación, los patrones de desviación son más evidentes y el modelo puede aislar con mayor precisión los grupos manipulados.
+Aquí el Modelo 1 logra capturar la mitad de todas las manipulaciones y, además, 3 de cada 4 registros que marca son realmente fraudulentos.
+
+##### Contaminación del 20%
+- Tamaño promedio de la muestra auditada: 705 registros
+
+- Registros contaminados dentro de la muestra auditada: 90%
+
+- Porcentaje total de contaminaciones detectadas: 64%
+
+*Interpretación:*
+La detección de datos manipulados aumenta cada vez más, casi todos los registros señalados por el modelo están realmente manipulados. Esto sugiere que el Modelo 1 es altamente efectivo en escenarios donde el fraude tiene un peso considerable dentro del dataset.
+
+##### Contaminación del 40%
+- Tamaño promedio de la muestra auditada: 1479 registros
+
+- Registros contaminados dentro de la muestra auditada: 95%
+
+- Porcentaje total de contaminaciones detectadas: 70%
+
+*Interpretación:*
+El modelo prácticamente identifica solo registros alterados (95%). A nivel de contaminación total reconoce el 70% de las manipulaciones totales. Esta es la condición donde el modelo funciona mejor, confirmando que su fortaleza crece con la magnitud de la manipulación.
+
+#### Variabilidad de resultados
+
+En todos los niveles de contaminación la variación entre datasets disminuye conforme aumenta el nivel de manipulación. Esto indica que el Modelo es más estable y predecible en escenarios con más señales de fraude, pero funciona peor cuando la contaminación es baja.
+
+#### Comparación con métodos alternativos
+
+Los autores realizan una comparación con un método simple basado en Z-scores de dígitos, observando a nivel de la muestra auditada:
+
+##### Contaminación 2%: 
+- Modelo 1: 28
+
+- Método alternativo : 214
+
+##### Contaminación 10%: 
+- Modelo 1: 327
+
+- Método alternativo : 633
+
+##### Contaminación 20%: 
+- Modelo 1: 705
+
+- Método alternativo : 1078
+
+##### Contaminación 40%: 
+- Modelo 1: 1479
+
+- Método alternativo : 1851
+
+Gracias a esto y al nivel de detección de los datos contaminados se observa que el modelo del paper genera muestras más pequeñas y es más eficaz a la hora de auditar valores manipulados.
+
+#### Conclusión general del análisis
+
+Se observa que el modelo tiene las siguientes ventajas:
+
+- Mejora drásticamente con la magnitud del fraude.
+
+- Optimiza el tamaño del audit sample, siendo más eficiente que métodos basados solo en Z-statistics.
+
+- Detecta adecuadamente manipulaciones que afectan patrones de dígitos.
+
+En conjunto, la evidencia muestra que el modelo es una buena herramienta para detectar manipulación en datos contables cuando las distorsiones son suficientemente significativas para alterar las distribuciones de Benford.
+
+### Conclusiones:
