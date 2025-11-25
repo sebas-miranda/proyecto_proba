@@ -1,11 +1,154 @@
 ---
-title: "Marco"
+title: ""
 format: pdf
+fontsize: 12pt
+mainfont: "Times New Roman"
+geometry: "margin = 2.54cm"
+colorlinks: true
+urlcolor: blue
+linestretch: 1.5
+include-in-header:
+  text: |
+      \usepackage{indentfirst}
+      \usepackage{hanging}
+      \usepackage{caption}
+      \usepackage{titling}
+       
+      \setlength{\parindent}{1.27cm}
+      \setlength{\parskip}{0pt}
+      \captionsetup[table]{name=Tabla}
+      \captionsetup[table]{font=small}
+      \captionsetup[figure]{name=Figura}
+      \captionsetup[figure]{font=small}
+      
+      \addtokomafont{section}{\rmfamily}
+      \addtokomafont{subsection}{\rmfamily}
+      \addtokomafont{subsubsection}{\rmfamily}
+      
+      \RedeclareSectionCommand[
+        beforeskip=1pt,
+        afterskip=1pt
+      ]{section}
+
+      \RedeclareSectionCommand[
+        beforeskip=4pt,
+        afterskip=4pt
+      ]{subsection}
+
+      \RedeclareSectionCommand[
+        beforeskip=3pt,
+        afterskip=3pt
+      ]{subsubsection}
+      
+      \pretitle{\begin{center}\fontsize{18pt}{20pt}\selectfont\bfseries}
+      \posttitle{\par\end{center}}
+      
+      \preauthor{\begin{center}\fontsize{12pt}{14pt}\selectfont}
+      \postauthor{\par\end{center}}
+      \predate{\begin{center}\fontsize{12pt}{14pt}\selectfont}
+      \postdate{\par\end{center}}      
 ---
+## Introducción
 
-aclarar que solo se trabajará uno de los 2 métodos del paper: **The Smallest Nonconforming Set of Records**
+### Finalidad del trabajo y Explicación de los Modelos Planteados.
 
-### o teórico: Ley de Benford y representación logarítmica
+El trabajo confeccionado por Gomes da Silva y Carreira surge con la finalidad de proponer un criterio técnico-racional eficiente para la selección de muestras en pruebas de auditoría, focalizado principalmente en instituciones financieras, la necesidad de la investigación de este tema surge debido a que los auditores requieren gestionar de forma eficiente el tiempo invertido para el estudio de los conjuntos de datos, más aún se requiere que el auditor sea capaz de realizar un filtrado efectivo del conjunto de datos pues el examinar transacción por transacción es una meta poco realista.  
+
+Este objetivo es alcanzado mediante la segmentación en dos bandas de los conjuntos de datos. 
+Primeramente, se identifican las muestras de auditoría observando las propiedades del subconjunto 
+de datos remanente después de retirar la muestra a auditar; esta muestra a auditar proviene del conjunto 
+más pequeño de los datos que no siguen la conformidad deseada en los registros. 
+
+Con la finalidad de determinar qué registro $t$ ha de ser examinado, es decir, removido del conjunto inicial 
+de los primeros $N$ registros, se define una variable aleatoria indicatriz:
+
+$$
+y_t := 
+\begin{cases}
+1, & \text{si el registro } t \text{ es removido}, \\
+0, & \text{en otro caso},
+\end{cases} 
+\quad t \in \{1,2,3,\ldots, N\}.
+$$
+Con esta variable aleatoria se introduce el tamaño del conjunto de conformidad dado por:
+
+$$
+N - K, \quad \text{donde} \quad K := \sum_{t=1}^{N} y_t.
+$$
+
+La idea tras esto, tal como señalan da Silva \& Carreira (2013), es identificar en qué datos se encuentra 
+la contaminación y removerla, dado que se persigue la finalidad de recuperar el conjunto de datos original. 
+Una vez hecha esta separación, se toman los $K$ registros más no conformes, dado un tamaño de muestra 
+fijado por el auditor.
+
+### Explicación de la Ley de Benford
+
+La particularidad del modelo proviene del filtrado para elegir qué conjuntos de datos están fuera de los 
+parámetros de conformidad siguiendo la Ley de Benford. Esta ley, explicada de modo intuitivo, se puede 
+ejemplificar de la siguiente manera:
+
+Suponer que se toma una muestra de datos fidedignos y heterogéneos, es decir, muy diversos, como por 
+ejemplo: el registro de natalidad por año de un país, el número de distritos por cantón en Costa Rica, 
+o facturas de compras en un supermercado. 
+
+De forma intuitiva podría suponerse que cada dígito $\{1,2,\ldots,9\}$ tiene un peso equiprobable de 
+ocurrencia, es decir:
+
+$$
+P(X = i) = \frac{1}{9} \approx 0.111.
+$$
+
+No obstante, esto no es cierto. En realidad, el dígito 1 ocurre con mucha mayor frecuencia que los demás; 
+el dígito 2 ocurre más que los restantes siete, y así sucesivamente hasta el 9. Los pesos de Benford típicos 
+son aproximadamente: 30% para el 1, 18% para el 2, y valores decrecientes hasta el 9.
+
+La probabilidad teórica de que el primer dígito sea $i$, donde $i = 1,2,\ldots,9$, está dada por:
+
+$$
+P(\text{primer dígito } = i) = \log_{10}\!\left(1 + \frac{1}{i}\right).
+$$
+
+Esta expresión tiene una justificación intuitiva debido a que muchos datos económicos se generan mediante 
+productos o cocientes de variables aleatorias, como sucede con el interés compuesto.
+
+Para hacer más natural esta explicación, considérese el caso en que el crecimiento poblacional de un país 
+está modelado con una distribución exponencial $\text{Exp}(\lambda = 1.1)$. En los primeros años, pasar de 
+100 a 1000 personas tarda más tiempo que pasar de 1000 a 2000, por el crecimiento progresivo de la 
+exponencial. Esto implica más observaciones con primer dígito 1, justificando intuitivamente la ley.
+
+## Justificación 
+
+El trabajo de investigación *Selecting Audit Samples Using Benford's Law* involucra amplios temas 
+probabilísticos aplicados en la industria financiera. En particular, se vincula fuertemente con:
+
+- la distribución de probabilidad de los dígitos de los datos,
+- el uso de la distribución natural de Benford como referencia,
+- la identificación de desviaciones respecto a esta distribución.
+
+Aquellos conjuntos que se alejan significativamente de Benford se consideran eventos poco probables 
+bajo el modelo, y por ende, deben ser auditados.
+
+Simultáneamente, el trabajo integra herramientas probabilísticas y estadísticas para pruebas de conformidad, 
+evaluando qué tan lejos se alejan los datos observados del comportamiento esperado. Esto incluye conceptos 
+tales como:
+
+- variables aleatorias,
+- funciones indicadoras,
+- funciones objetivo basadas en probabilidad,
+- restricciones construidas mediante desviaciones estadísticas.
+
+Todos estos conceptos se articulan con el propósito de resolver un problema real: optimizar la selección de 
+muestras de auditoría en datos financieros potencialmente afectados por errores o fraudes.
+
+## Objetivo
+
+El objetivo del trabajo de investigación abordado consisten en proporcionar una herramienta técnica eficiente para la recolección de muestras a auditar teniendo como referencia los parámetros de conformidad previamente definidos por el auditor, para este propósito se establecen cierto criterios para realizar el filtrado del conjunto de datos, bajo los principios de la ley de Benford, por esto mismo el trabajo persigue contribuir al análisis dígital mediante modelos matemáticos en la prevención del fraude.
+
+## Marco Teórico
+
+
+
+### Ley de Benford y representación logarítmica
 
 Después de la introducción y la motivación del trabajo, el siguiente paso es entender con más detalle qué es la Ley de Benford desde el punto de vista probabilístico y por qué tiene sentido usarla como referencia de “normalidad” en los dígitos de los datos contables y financieros.
 
@@ -60,7 +203,7 @@ $$ de modo que $$
 \{\log_{10}(400)\} \in [\log_{10} 4,\, \log_{10} 5).
 $$ Según la equivalencia anterior, esto indica que el primer dígito de $400$ es $4$, como es de esperar. Casos como $x = 200$ o $x = 3000$ caen exactamente en los extremos de los intervalos, pero adoptando la convención estándar de intervalos semiabiertos $[\log_{10} d,\log_{10}(d+1))$ se asignan correctamente al dígito $d+1$, coincidiendo con la lectura usual del primer dígito.
 
-#### Uniformidad logarítmica e intuición multiplicativa
+### Uniformidad logarítmica e intuición multiplicativa
 
 La construcción anterior es puramente geométrica. Para convertirla en un modelo probabilístico necesitamos hacer una hipótesis sobre cómo se distribuye la parte fraccionaria del logaritmo.
 
@@ -81,7 +224,7 @@ $$ Así se obtiene la fórmula clásica de Benford para el primer dígito.
 
 Esta hipótesis no es gratuita. Hill (1995) demuestra de forma rigurosa que, bajo condiciones muy generales, **mezclas** razonables de distribuciones y de escalas conducen a la Ley de Benford: si se combinan datos provenientes de orígenes distintos y que cubren varios órdenes de magnitud, la distribución límite de esta parte fraccionaria tiende a ser uniforme, y, en consecuencia, los primeros dígitos siguen la distribución logarítmica. De forma complementaria, Boyle (1994) muestra que listas de números obtenidas mediante productos, cocientes y potencias enteras de variables aleatorias también convergen a Benford. En ambos casos la intuición es fuertemente **multiplicativa**: en escala logarítmica, productos se convierten en sumas, y sumas largas de variables aleatorias son el terreno natural del Teorema del Límite Central.
 
-#### La Ley de Benford como distribución discreta
+### La Ley de Benford como distribución discreta
 
 Con la interpretación anterior, podemos presentar la Ley de Benford como una **distribución de probabilidad** sobre el primer dígito. Definimos la variable aleatoria discreta $$
 D_1 := \text{“primer dígito significativo de } X\text{”},
@@ -101,7 +244,7 @@ $$
 
 De forma análoga se pueden definir variables para el segundo dígito $D_2$ (soporte $\{0,\dots,9\}$) y para los dos primeros dígitos $(D_1,D_2)$ (soporte $\{10,\dots,99\}$), cuyas probabilidades se calculan de formas similares. En la práctica del artículo de Gomes da Silva y Carreira (2013), estas distribuciones teóricas sirven como referencia: se comparan las frecuencias observadas en los datos (conteos de dígitos) con las probabilidades que predice Benford para evaluar conformidad en distintos tests de dígitos.
 
-#### Cuándo aplicar Benford (ejemplos y limitaciones)
+### Cuándo aplicar Benford (ejemplos y limitaciones)
 
 No todos los conjuntos de datos deberían analizarse con Benford. La ley funciona bien cuando los datos:
 
@@ -244,6 +387,12 @@ En resumen, desde el punto de vista del curso de Probabilidad:
 -   su definición usa de manera directa conceptos como variables indicadoras, esperanza, varianza y el Teorema del Límite Central;
 -   y todos ellos sirven, en el artículo, para cuantificar **qué tan lejos** están los datos observados de la distribución de Benford. En la siguiente parte del marco teórico se explicará cómo estos estadísticos se convierten en restricciones específicas dentro del modelo de programación matemática que busca el “smallest nonconforming set of records”.
 
+
+## Metodología
+
+Inicialmente, *Selecting Audit Samples Using Benford's Law* presenta dos aplicaciones principales para las auditorías utilizando los tres modelos estadísticos ya definidos. Para un análisis más compacto, se toma en cuenta la primer aplicación, denominada como *Smallest Nonconforming Set of Records*, la cual se modela al final de este apartado, pero de manera intuitiva, corresponde **al conjunto más pequeño de registros no conformes** obtenidos de un datset.
+
+
 ### Estadísticos de prueba y pruebas de conformidad en el modelo
 
 Hasta aquí hemos visto la distribución de Benford como modelo teórico y cómo la LGN y el TLC justifican que las frecuencias relativas en la muestra se acerquen a las probabilidades $p_j$. Falta explicar cómo esas ideas se convierten, en el artículo de Gomes da Silva y Carreira (2013), en **pruebas de conformidad** concretas y, luego, en restricciones dentro del modelo de programación matemática para el “smallest nonconforming set of records”.
@@ -255,7 +404,7 @@ La lógica general es:
 3.  Se construyen **estadísticos de prueba** (chi–cuadrado, MAD, $Z$–scores) que miden distancia entre $\hat p(i,T)$ y $e(i,T)$.
 4.  El modelo exige que esos estadísticos estén por debajo de ciertos valores críticos. Si no, elimina más registros (pone más $y_t = 1$) hasta que el subconjunto remanente “conforme” con Benford.
 
-#### Tests de dígitos y probabilidades de referencia
+### Tests de dígitos y probabilidades de referencia
 
 En el paper se consideran varios **tests de dígitos**, que se indexan por $T$:
 
@@ -275,7 +424,7 @@ Para cada test $T$:
 
 Estas $e(i,T)$ juegan el papel de los $p_j$ en la parte teórica: son las probabilidades que se esperan si los datos son “limpios”.
 
-#### Variables $h_t(i,T)$ y $y_t$: cómo se escribe el conteo en el modelo
+### Variables $h_t(i,T)$ y $y_t$: cómo se escribe el conteo en el modelo
 
 Para poder incorporar todo esto en un modelo de programación matemática, el artículo introduce dos tipos de variables:
 
@@ -411,7 +560,7 @@ En este proyecto no profundizamos en todas las sutilezas estadísticas de estos 
 
 ------------------------------------------------------------------------
 
-### Conexión final con el “Smallest Nonconforming Set of Records”
+### Conexión con el “Smallest Nonconforming Set of Records”
 
 Resumiendo, la sección “The Smallest Nonconforming Set of Records” del paper se apoya completamente en los conceptos probabilísticos vistos en el curso:
 
@@ -429,3 +578,32 @@ Resumiendo, la sección “The Smallest Nonconforming Set of Records” del pape
 El problema que resuelven Gomes da Silva y Carreira es, precisamente, $$
 \min \sum_{t=1}^N y_t
 $$ sujeto a todas estas restricciones de conformidad. Es decir, buscan el **conjunto más pequeño de registros no conformes** que, una vez retirado, deja un dataset cuyo patrón de dígitos pasa las pruebas de conformidad con la Ley de Benford. Esta formulación conecta directamente los conceptos teóricos de variables aleatorias discretas, LGN, TLC y distribución chi–cuadrado con una herramienta concreta para auditoría en grandes bases de datos financieros.
+
+### Parámetros Definidos y Protocolo Iterativo
+
+El modelo requiere que el auditor defina ciertos parámetros antes de ejecutar el procedimiento, en particular:
+
+- los **tests de conformidad** a utilizar (primer dígito, segundo dígito, dos primeros dígitos, últimos dígitos, etc.);
+- los **estadísticos** asociados a cada test (χ², MAD o *Z*-score);
+- los **valores críticos** correspondientes a los estadísticos seleccionados.
+
+En la práctica, estas decisiones pueden generar incertidumbre para el auditor. Por ello, Gomes da Silva y Carreira (2013) proponen un **protocolo iterativo** que permite ajustar los valores críticos después de observar el tamaño de la muestra resultante.
+
+Según este procedimiento, el auditor primero fija los tests y estadísticos a emplear, así como los valores críticos iniciales. A continuación, se resuelve el modelo y se obtiene la muestra de auditoría, formada por aquellos registros para los cuales:
+
+$$
+y_t = 1.
+$$
+
+Una vez obtenida la solución, el auditor evalúa si el tamaño de la muestra, denotado por $z^{\*}$, es adecuado. En caso de no serlo, puede ajustarlo de la siguiente manera:
+
+- Si desea **una muestra más grande**, puede **disminuir los valores críticos**, haciendo más estrictas las pruebas de conformidad.
+- Si desea **una muestra más pequeña**, puede **incrementar los valores críticos**, haciendo las pruebas más permisivas.
+
+El proceso continúa hasta que el auditor obtenga un tamaño $z^{\*}$ satisfactorio. Los registros seleccionados finalizan siendo aquellos con $y_t = 1$ en la solución correspondiente a los valores críticos aceptados.
+
+Este protocolo asiste al auditor en la gestión del riesgo. Valores críticos elevados implican un mayor riesgo de pasar por alto registros fraudulentos (dado que la muestra será más pequeña), mientras que valores críticos bajos generan muestras más amplias, reduciendo la probabilidad de excluir registros relevantes para la auditoría.
+
+
+
+
