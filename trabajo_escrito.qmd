@@ -682,3 +682,6 @@ Se observa que el modelo tiene las siguientes ventajas:
 En conjunto, la evidencia muestra que el modelo es una buena herramienta para detectar manipulación en datos contables cuando las distorsiones son suficientemente significativas para alterar las distribuciones de Benford.
 
 ### Conclusiones:
+
+### Referencias: 
+Gomes da Silva, C., & Carreira, P. M. R. (2013). Selecting Audit Samples Using Benford’s Law. Auditing: A Journal of Practice & Theory, 32(2), 53–65.
