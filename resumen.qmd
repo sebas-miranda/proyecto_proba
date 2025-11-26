@@ -1,0 +1,74 @@
+---
+title: ""
+format: pdf
+fontsize: 12pt
+mainfont: "Times New Roman"
+geometry: "margin = 2.54cm"
+colorlinks: true
+urlcolor: blue
+linestretch: 1.5
+include-in-header:
+  text: |
+      \usepackage{indentfirst}
+      \usepackage{hanging}
+      \usepackage{caption}
+      \usepackage{titling}
+       
+      \setlength{\parindent}{1.27cm}
+      \setlength{\parskip}{0pt}
+      \captionsetup[table]{name=Tabla}
+      \captionsetup[table]{font=small}
+      \captionsetup[figure]{name=Figura}
+      \captionsetup[figure]{font=small}
+      
+      \addtokomafont{section}{\rmfamily}
+      \addtokomafont{subsection}{\rmfamily}
+      \addtokomafont{subsubsection}{\rmfamily}
+      
+      \RedeclareSectionCommand[
+        beforeskip=1pt,
+        afterskip=1pt
+      ]{section}
+
+      \RedeclareSectionCommand[
+        beforeskip=4pt,
+        afterskip=4pt
+      ]{subsection}
+
+      \RedeclareSectionCommand[
+        beforeskip=3pt,
+        afterskip=3pt
+      ]{subsubsection}
+      
+      \pretitle{\begin{center}\fontsize{18pt}{20pt}\selectfont\bfseries}
+      \posttitle{\par\end{center}}
+      
+      \preauthor{\begin{center}\fontsize{12pt}{14pt}\selectfont}
+      \postauthor{\par\end{center}}
+      \predate{\begin{center}\fontsize{12pt}{14pt}\selectfont}
+      \postdate{\par\end{center}}      
+---
+
+## Resumen
+
+En el presente artículo se realizan dos modelos matemáticos programables que pueden asistir en el análisis de auditoría, mediante la selección de las muestras de escrutinio más prometedoras, estas muestras más potencialmente significativas son escogidas de manera optimizada teniendo como referencia la distribución natural (fidedigna) de los dígitos, la cual se comprende como la ley de Benford, conocida también como la ley de los dígitos significativos.
+
+A propósito de esta ley, en el presente trabajo escrito se dedica un apartado en realizar la reconstrucción de identidad de manera formal, para esto mismo se hace uso de las propiedades de logaritmos y la acotación de x-valores en un intervalo, derivando formalmente la propiedad, suponiendo así un motivación matemática del análisis de la ley de Benford. En simultáneo se señalan las limitaciones de esta ley, la cual se satisface para conjuntos de datos no tan restrictivos y que satisfagan la propiedad heterogénea, se extrapola la distribución de Benford a la probabilidad para el análisis de conjuntos de datos aplicada en variables indicadoras de eventos, justificando mediante la ley de los grandes números (LGN) la convergencia a la media teórica (convergencia casi segura o en probabilidad, según versión de LGN) .
+
+Análogamente se describen los estadísticos utilizados en el modelo, a saber: La prueba chi-cuadrado que suma los desajustes al cuadrado, prueba de Mean Absolute Deviation (MAD) que mide la discrepancia respecto a la muestra observada y Z-score para dìgitos individuales que mide cuántas desviaciones estándar un punto de datos está por encima (o debajo) de la media verdadera. Dado que si la distribución de Benford proporciona probabilidades teóricas, es necesario conocer qué tanto se desvían los conjuntos de datos de estudio de está misma.
+
+A su vez se explora la construcción de estos estadísticos mediante el criterio del Teorema del Límite Central (TLC), donde se puede comprender la distribución chi-cuadrado como la suma N variables aleatorias independientes donde $N_i \text{ para cada } i = 1, \ldots, n$ siguen una distribución Normal$(\mu = 0,\ \sigma^2 = 1)$, MAD se aborda desde su definición como medida absoluta del desajuste respecto a la cantidad de categorías de la desviación entre la frecuencia relativa observada y la probabilidad teórica de Benford, mientras que los Z-score individuales comparan la frecuencia de un dígito observada (individual o par) con los esperados teóricos de Benford, en síntesis se construye todo un marco teórico-metodológico que persigue rescatar las desviaciones más significativas con el objetivo de prevenir la pérdida información relevante en las muestras a auditar.
+
+Dado que el filtrado de las muestras de auditoría se propone realizar en dos estados, a saber mediante la identificación del subconjunto más pequeño de aquellos resultados más no conformes (es decir atípicos) de un conjunto de datos lo cual se obtiene mediante mediante la asignación de ciertos parámetros por parte del auditor, y la selección de los K registros menos conformes, no obstante el trabajo se centrará en explorar el primer método supracitado.
+
+Resumidamente se puede definir la heurística general del proceso de la identificación del subconjunto de datos más pequeño no conforme, en donde teniendo de referencia las probabilidades teóricas de Benford y las muestras observadas se construyen los estadísticos de prueba previamente mencionados, y mediante el establecimiento de unas bandas de desviación razonables se obtiene la depuración del conjunto de datos fidedigno, que ha de satisfacer comportarse en distribución como la ley natural de los dígitos, es decir, se persigue con esta técnica el filtrado de el conjunto de datos hasta obtener uno que puede comprenderse como depurado y libre de alteraciones ya sea por error o fraudes, para esto mismo se establece una cota S(T), donde T es un experimento, la cual el auditor estipula de referencia con el objetivo de tener una banda de tolerancia respecto a qué tanto soporta la desviación observada de los datos respecto a las teóricas de Benford.
+
+Paralelamente con el propósito de someter a prueba la fiabilidad del modelo y a modo de ejemplificación de la aplicación del mismo, daSilva y Carreira seleccionaron de manera aleatoria 30 conjuntos de datos de cinco mil registros de cuatro dígitos cada uno, con la finalidad de medir en diferentes niveles de contaminación (manipulación de los conjuntos de datos) el grado de efectividad del modelo, pruebas para las que resumidamente se concluyó para un nivel de contaminación de un 10% del total del conjunto de datos, el modelo de la detección del conjunto de datos no conforme más pequeño satisface una efectividad prudente para su implementación en contextos reales, como limitantes se tiene que si las contaminaciones son muy escazas (umbral del 2%) la prueba para la construcción del conjunto de datos depurados se ve ensuciada debido a las lígeras desviaciones producidas por el modelo.
+
+## Bibliografía
+
+Boyle, J. 1994. An application of Fourier series to the most significant digit problem. American Mathematical Monthly (November): 879–886. 
+
+Gomes da Silva, C., & Carreira, P. M. R. (2013). Selecting Audit Samples Using Benford’s Law. Auditing: A Journal of Practice & Theory, 32(2), 53–65. 
+
+Hill, T. 1995. A statistical derivation of the significant-digit law. Statistical Science 10 (4): 354–363. 
